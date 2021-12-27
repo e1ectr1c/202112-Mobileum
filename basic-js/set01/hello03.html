@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript Demo</title>
+    <script>
+        document.write('<h2>Hello World on Documents</h2>');
+        window.document.write('<strong>Hello World on Document Again!</strong>');
+        for(let i=0;i<10000000;i++)
+            for(let j=0;j<10;j++);
+
+        console.log('hello world on console');
+        let clientArea=document
+                .getElementById('client-area');
+
+        clientArea.innerHTML = 'Hello World on client-area';
+    </script>
+</head>
+<body>
+    <h1>Hello Javascript World</h1>
+    <person email="vivek@thelostepic.com">
+        Vivek Dutta Mishra
+    </person>
+    <div id="client-area">
+        If you are seeing this message 
+        that means something went wrong!
+    </div>
+</body>
+</html>
