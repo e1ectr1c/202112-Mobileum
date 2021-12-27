@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 >Hey <span id="name">Guest</span>  ,Welcome to Service</h1>
+
+    <input id="name" placeholder='Please Enter your name' />
+    <button onclick="greet();">Submit</button>
+    
+    <script>
+        let nameBox=document.getElementById("name");
+        //let namePara=document.getElementById("namePara");
+        //let heading=document.getElementById("heading");
+        let name=document.getElementById("name");
+        var greet=function(){
+
+            //console.log('greet called for', nameBox.value);
+            //namePara.innerHTML=nameBox.value;
+
+            name.innerHTML=nameBox.value;
+            
+        };
+    </script>
+    
+</body>
+</html>
