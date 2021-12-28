@@ -26,17 +26,18 @@
         <div>
             Number
             <input type='text' id='number' />
-            <input type='button' value='Add To List'   />
+            <input type='button' value='Add To List' onclick="addToList();"   />
             
             <input type='button' value='Clear Display' 
-                    onclick="clearDisplay()" />
+                    onclick="window.clear()" />
             
-            <input type='button' value='Reset Calculator'  />
+            <input type='button' value='Reset Calculator' 
+                    onclick="reset();" />
 
             <br/>
-            <input type='button' value='Sum'    />
-            <input type='button' value='Average'  " />
-            <input type='button' value='Find Min'   />
+            <input type='button' value='Sum' onclick="sum();"   />
+            <input type='button' value='Average'  onclick="average();" />
+            <input type='button' value='Find Min'  onclick="findMin();" />
 
         </div>
 
@@ -66,6 +67,9 @@
         <input type='button' value='refresh list' />
     </fieldset>
 
+    <script src="calc.js">
+       
+    </script>
     
     
 </body>
