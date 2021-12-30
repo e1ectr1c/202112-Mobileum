@@ -4,21 +4,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="app.css">
     <title>Document</title>
 </head>
 <body>
-    <div>
-        <h1>Book's Web</h1>
-        <ul>
-            <li><a href="/">home</a></li>
+    <header>
+        <h1 class='siteTitle'>Book's Web</h1>
+        <ul class='nav'>
+            <li>
+                <a href="/">home</a>
+            </li>
             <li><a href="/add.html">Add Book</a></li>
             <li><a href="/authors">Authors</a></li>
-
+            
         </ul>
-    </div>
+    </header>
 
     <div>
         <h1>Our Book List</h1>
+
+        <div class='search-bar'>
+            Search
+
+            <select >
+                <option value="isbn">ISBN</option>
+                <option value="title">Title</option>
+                <option value="author">Author</option>
+            </select>
+            <input type='search' placeholder='search' id='search' />
+            <button>Go</button>
+        </div>
 
         <table>
             <thead>
@@ -33,16 +48,20 @@
 
             <tbody>
                 <tr>
-                    <td>image</td>
+                    <td>
+                        <img src='https://m.media-amazon.com/images/I/41-KqB1-cqL._SY346_.jpg'/>
+                    </td>
                     <td>The Accursed God</td>
                     <td>Vivek Dutta Mishra</td>
                     <td>399</td>
                     <td>4.2</td>
                 </tr>
                 <tr>
-                    <td>image</td>
-                    <td>My Experiments with truth</td>
-                    <td>Mahatma Gandhi</td>
+                    <td>
+                        <img src='https://m.media-amazon.com/images/I/51UoqRAxwEL.jpg'/>
+                    </td>
+                    <td>Harry Potter and the Philospher's stone</td>
+                    <td>JK Rowling</td>
                     <td>109</td>
                     <td>4.8</td>
                 </tr>
