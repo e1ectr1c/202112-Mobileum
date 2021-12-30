@@ -26,13 +26,15 @@
         <div class='search-bar'>
             Search
 
-            <select >
+            <select id="search-type">
                 <option value="isbn">ISBN</option>
                 <option value="title">Title</option>
                 <option value="author">Author</option>
+                <option value="rating">Min Rating</option>
+                <option value="price">Price Range</option>
             </select>
-            <input type='search' placeholder='search' id='search' />
-            <button>Go</button>
+            <input type='search' placeholder='search' id='search-text' />
+            <button id="search-button">Go</button>
         </div>
 
         <table>
@@ -46,7 +48,7 @@
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody id='book-list'>
                 <tr>
                     <td>
                         <img src='https://m.media-amazon.com/images/I/41-KqB1-cqL._SY346_.jpg'/>
@@ -69,6 +71,11 @@
 
         </table>
     </div>
+
+    <script src="scripts/utils.js"></script>
+    <script src='scripts/book.js'></script>
+    <script src='scripts/book-manager.js'></script>
+    <script src='scripts/app.js'></script>
 
 </body>
 </html>
