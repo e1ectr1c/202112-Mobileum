@@ -15,10 +15,15 @@ function createApp(){
                 console.add('invalid input:'+input.getRawValue());
             }
         },
+
+
         handleSum:function(){
             var sum=calculator.sum();
             console.add('sum is '+sum);
         },
+
+
+        
         handleAverage:function(){
             var average=calculator.average();
             console.add('average is'+average);

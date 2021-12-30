@@ -6,8 +6,11 @@ function createCalculator(){
             if(!isNaN(number))
                 this.numbers.push(number);
         },
+
+
+        
         sum:function(){
-            var result=0;
+            var result=0; 
             for(var number of this.numbers)
                 result+=number;
 

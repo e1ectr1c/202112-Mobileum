@@ -5,17 +5,36 @@ const Book= function (title,author,price,rating){
     this.rating=rating;
 }
 
-const search=(list, match)=>{
-
+Array.prototype.search=function( match){
     let result=[];
-
-    for(let value of list){
+    for(let value of this){
         if(match(value))
             result.push(value);
     }
+    return result;
+}
+
+Array.prototype.print=function(header){
+    console.log(header);
+    for(let value of this){
+        console.log(value);
+    }
+}
+
+Array.prototype.each=function(action){
+    for(let value of this)
+        action(value);
+};
+
+
+Array.prototype.select=function(selector){
+    let result=[];
+    for(let value of this)
+        result.push(selector(value));
 
     return result;
 }
+
 
 const BookManager=function(){
 
@@ -34,31 +53,23 @@ const BookManager=function(){
         return this.db;
     }
 
-    this.printBooks=function(header,books=this.db){
+    this.printBooks=function(header){
         
-        console.log(header);
-        for(let book of books)
-            console.log(book);
-        console.log();
+        this.db.print(header);
+    
     }
 
     this.getBooksByAuthor=function(author){
         author=author.toLowerCase();        
-        function matchAuthor(book){
-            if(book.author.toLowerCase().includes(author)) 
-                return true;
-            else 
-                return false;
-        }
-
-        return search(this.db, matchAuthor);
+       return this.db.search(b=>b.author.toLowerCase().includes(author));
     }
     this.getBooksInPriceRange=function(min,max){
-       return search(this.db, book=>book.price>=min && book.price<=max);
+
+        return this.db.search( b=>b.price>=min && b.price<=max);
     }
 
     this.getBooksByRating=function(minRating){
-       return search(this.db, book=>book.rating>=minRating );
+        return this.db.search(b=>b.rating>=minRating);
     }
 };
 
@@ -74,13 +85,17 @@ bookManager.addBooks(
 );
 
 
-bookManager.printBooks("All Books");
+//bookManager.printBooks("All Books");
 
-const archerBook= bookManager.getBooksByAuthor("archer");
-bookManager.printBooks("Books by Jeffrey Archer", archerBook);
+//bookManager.getBooksByAuthor('archer').print('Arhcer books');
 
-const books300_400= bookManager.getBooksInPriceRange(300,400);
-bookManager.printBooks("Books In price range 300-400",books300_400);
 
-const goodBooks=bookManager.getBooksByRating(4.1);
-bookManager.printBooks('Good books with rating above 4>',goodBooks);
+const result=bookManager
+            .getAllBooks()
+            .search(b=>b.price>=300)
+            .search(b=>b.rating>=4)
+            .select(b=> ({title:b.title, price:b.price, rating:b.rating}))
+            //.each(s=>console.log(s));
+            .each(console.log);
+            
+
