@@ -22,9 +22,6 @@ Array.prototype.search=function( match){
     return result;
 }
 
-
-
-
 const  array = [2,3,9,11,8,15,4,17 ];
 
 //const primes = array.filter( n => isPrime(n));
