@@ -34,7 +34,7 @@ const findPrimesSyncCallback=(min,max,cb)=>{
 
 
 
-const findPrimes=(min,max,cb)=>{
+const findPrimesV1=(min,max,cb)=>{
     let result=[];
     setTimeout(()=>{
         //work starts later (after 500 ms)
@@ -51,6 +51,37 @@ const findPrimes=(min,max,cb)=>{
     
 }
 
+const findPrimeRange=(min,max,cb)=>{
+    setTimeout(()=>{
+        if(min>=max)
+            return cb(new Error(`Invalid range (${min}-${max})`));
+
+        let result={min,max,primes:[]}
+        let lo=min; 
+        let hi= Math.min(max, lo+1000); //max or lo+1000 whichever is greater
+
+        const iid=setInterval(()=>{
+            //find primes between lo and hi
+            for(let i=lo;i<hi;i++){
+                if(isPrimeSync(i))
+                    result.primes.push(i)
+            }
+            
+            if(hi===max){
+                //work is done
+                clearInterval(iid);
+                return cb(null,result); //example {min:0, max:10, primes:[2,3,5,7]}
+            }
+
+            //reset the range
+            lo=hi;
+            hi=Math.min(max,lo+1000);
+
+        },100);
+
+    },10);
+
+}
 
 
 
@@ -61,5 +92,6 @@ module.exports={
     isPrimeSync,
     findPrimesSync,
     findPrimesSyncCallback,
-    findPrimes
+    findPrimesV1,
+    findPrimeRange
 }
