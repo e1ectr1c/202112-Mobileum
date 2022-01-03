@@ -1,7 +1,7 @@
 const {findPrimes} =require('../utils/primes-utils.js' );  //go to parent direction, then utils, then prime-utils
 
 
-const findPrimesInRangeSync=(min,max)=>{
+const findPrimesInRange=(min,max)=>{
 
     console.log(`finding primes between ${min}-${max}`);
 
@@ -11,6 +11,6 @@ const findPrimesInRangeSync=(min,max)=>{
     });
 }
 
-findPrimesInRangeSync(2,500000);
-findPrimesInRangeSync(2,10000);
-findPrimesInRangeSync(2,100000);
+findPrimesInRange(2,500000);
+findPrimesInRange(2,10000);
+findPrimesInRange(2,100000);
