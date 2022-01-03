@@ -1,7 +1,7 @@
 const {findPrimesSyncCallback} =require('../utils/primes-utils.js' );  //go to parent direction, then utils, then prime-utils
 
 
-const findPrimesInRangeSync=(min,max)=>{
+const findPrimes=(min,max)=>{
 
     console.log(`finding primes between ${min}-${max}`);
 
@@ -11,6 +11,8 @@ const findPrimesInRangeSync=(min,max)=>{
     });
 }
 
-findPrimesInRangeSync(2,500000);
-findPrimesInRangeSync(2,10000);
-findPrimesInRangeSync(2,100000);
+findPrimes(2,500000);  
+findPrimes(2,10000);   
+findPrimes(2,100000);  
+
+

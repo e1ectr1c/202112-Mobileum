@@ -1,0 +1,4 @@
+This is a simple text file
+it contains few lines of text 
+to show how nodejs 'fs' object can read this file
+we will also duplicate this file later.

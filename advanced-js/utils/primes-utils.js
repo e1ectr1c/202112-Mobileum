@@ -36,8 +36,8 @@ const findPrimesSyncCallback=(min,max,cb)=>{
 
 const findPrimes=(min,max,cb)=>{
     let result=[];
-
     setTimeout(()=>{
+        //work starts later (after 500 ms)
         for(let i=min;i<max;i++){
             if(isPrimeSync(i))
                 result.push(i);
@@ -45,6 +45,9 @@ const findPrimes=(min,max,cb)=>{
     
         cb(result);
     },500);
+
+    //function returns while work is still in prograess
+    //now we can use this time for next activity
     
 }
 
