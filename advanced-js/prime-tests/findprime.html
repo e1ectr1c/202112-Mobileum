@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1>Find Primes In Range</h1>
+
+    <input placeholder="min" id='min' />
+    <input placeholder="max" id='max' />
+    <br/>
+    <input type='button' value='Find Prime Sync' onClick="app.findPrimeSync();" />
+    <input type='button' value='Find Prime Callback' onClick="app.findPrimeCallback();" />
+    <input type="button" value="Find Prime Promise" onClick="app.findPrimePromise();" />
+    
+    <hr/>
+    <img src='loading2.gif' id='loading' width='50'/>
+    <div id='console'>
+
+    </div>
+
+    <script src='../utils/primes-utils.js'></script>
+
+    <script>
+
+        const app=(function(){
+
+            const minBox= document.getElementById("min");
+            const maxBox= document.getElementById("max");
+            const display= document.getElementById('console');
+            const show=(message)=> display.innerHTML+=`<br>${message}</br>`;
+
+            const loading= document.getElementById('loading');
+            
+            loading.style.display='none';
+            let workCount=0;
+            function endWork(message){                
+                show(message);
+                workCount--;
+                if(!workCount){
+                    loading.style.display='none'
+                }                
+            };
+
+            function startWork(message){
+                show(message);
+                workCount++;
+                loading.style.display='block';
+            }
+
+            const findPrimeSync =()=>{
+                const min=+minBox.value;
+                const max=+maxBox.value;
+                workCount++;
+                startWork( `finding prime between ${min}-${max} syncrhonously...`);
+                
+                findPrimesSyncCallback(min,max, (result)=>{
+                    console.log('result',result);
+                    workCount--;
+                    endWork(`Total primes in range (${result.min}-${result.max}) is ${result.primes.length}`);
+                })
+            }
+
+            
+            const findPrimeCallback =()=>{
+                const min=+minBox.value;
+                const max=+maxBox.value;
+               
+               
+                findPrimeRange(min,max, (error, result)=>{
+                    
+                    if(error){
+                        endWork(error.message);
+                    } else {
+                        endWork(`total primes between ${result.min}-${result.max} is ${result.primes.length}` );
+                    }
+                });
+
+                //this will work immediately
+                startWork( `finding prime between ${min}-${max} using callback...`);
+
+            }
+
+
+            
+            const findPrimeUsingPromise =()=>{
+                const min=+minBox.value;
+                const max=+maxBox.value;
+
+                
+
+                findPrimePromise(min,max)
+                    .then( result => endWork(`total primes between ${result.min}-${result.max} is ${result.primes.length}`))
+                    .catch(error=>endWork(error.message));
+
+                startWork( `finding prime between ${min}-${max} using promise...`);
+
+            }
+
+
+            return {
+                findPrimeSync,
+                findPrimeCallback,
+                findPrimePromise:findPrimeUsingPromise
+            };
+
+
+        })();
+
+
+    </script>
+</body>
+</html>
