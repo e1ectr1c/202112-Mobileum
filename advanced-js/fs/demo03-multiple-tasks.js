@@ -14,8 +14,6 @@ const fs = require("fs");
 
 fs.mkdir(tempDirName, (error) => {
     // success or failure, now we have our directory
-
-
     fs.copyFile(sourceFileSpecs, tempDirName + "/" + sourceFileSpecs, fs.constants.COPYFILE_EXCL, (error) => {
         if (error) {
             console.log('file copy error:', error.message);
@@ -31,7 +29,6 @@ fs.mkdir(tempDirName, (error) => {
                     });
                 }
             }
-
             setTimeout(()=>{
 
                 fs.rmdir(tempDirName,{ recursive: true, force: true }, error=>{
@@ -45,10 +42,6 @@ fs.mkdir(tempDirName, (error) => {
                 })
 
             },10000)
-
         })
-
-
     });
-
 });
