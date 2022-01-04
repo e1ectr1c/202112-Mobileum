@@ -2,14 +2,18 @@ const {findPrimePromise} =require('../utils/primes-utils.js' );  //go to parent 
 
 
 
-const findPrimesInRange=(min,max)=>{
+function findPrimesInRange(min,max){
 
     console.log(`finding primes between ${min}-${max}`);
 
     const promise=findPrimePromise(min, max);
 
     promise
-        .then( result=>console.log(`total primes in range (${result.min}-${result.max}) is ${result.primes.length}`))
+        .then( result=>{
+            console.log(`total primes in range 
+                        (${result.min}-${result.max}) 
+                        is ${result.primes.length}`);
+        })
         .catch( error=>console.error(error.message));
 }
 

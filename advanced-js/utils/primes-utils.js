@@ -78,7 +78,7 @@ const findPrimeRange = (min, max, cb) => {
             lo = hi;
             hi = Math.min(max, lo + 1000);
 
-        }, 100);
+        }, 10);
 
     }, 10);
 
@@ -117,9 +117,6 @@ const findPrimePromise = (min, max) => {
             }, 10);
 
         }, 10);
-
-
-
     });
 
 }
