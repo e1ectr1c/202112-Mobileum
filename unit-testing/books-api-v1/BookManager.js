@@ -15,7 +15,7 @@ class BookManager{
         if(!book.title)
             throw new Error("Invalid Argument: title");
 
-        console.log('missing book.title ignored',book);
+        //console.log('missing book.title ignored',book);
         if(!book.author)
             throw new Error("Invalid Argument: title");
         
