@@ -116,55 +116,111 @@ const seedData = [
 
 
 
-const BookManager=function(){
+class BookManager{
 
+    constructor(){
+        this.db=[];
+        this._loadBooks();
+    }
     
-    this. db=[];
-    
+    _loadBooks(){
+        //step 1. check if we have 'books' in localStorage
+        try{
+            const bookJson= localStorage.getItem('books');
+            let books=null;
+            if(bookJson)
+                books=JSON.parse(bookJson);
+            if(books)
+                this.db=books;
+
+        } catch(e){
+            console.log('error',e.message);
+        }
+
+        if(!this.db || this.db.length===0){
+            //if books can't be loaded or there is no book in db
+            //load dummy data for now
+            this.db=seedData;
+            //save it for future
+
+            this._saveBooks();
+            console.log('seeding dummy data...');
+        }else{
+            console.log('getting real data from storage');
+        }
+        
+        
+    }
+
+    _saveBooks(){
+        //save to the local storage
+
+        localStorage.setItem("books", JSON.stringify(this.db));
+
+    }
 
 
-    this.addBook=function(book){
+    addBook(book){
         this.db[this.db.length]=book;
+        this._saveBooks();
     }
 
-    this.addBooks=function(...books){
+    addBooks(...books){
         this.db=[...this.db,...books];
+        this._saveBooks();
     }
 
-    this.getAllBooks=function(){
+    getAllBooks(){
         return this.db;
     }
 
-    this.getBooksByAuthor=function(author){
+    getBooksByAuthor(author){
         author=author.toLowerCase();        
        return this.db.search(b=>b.author.toLowerCase().includes(author));
     }
 
 
-    this.getBooksInPriceRange=function(min,max){
+    getBooksInPriceRange(min,max){
 
-        return this.db.search( b=>b.price>=min && b.price<=max);
+        return this.db.search( b=>b.price>=min && (max===0 ||b.price<=max));
     }
 
-    this.getBooksByRating=function(minRating){
+    getBooksByRating(minRating){
         return this.db.search(b=>b.rating>=minRating);
     }
 
-    this.getBookByIsbn=function(isbn){
-        return this.db.book.find(b=>b.isbn===isbn);
+    getBookByIsbn(isbn){
+        return this.db.find(b=>b.isbn===isbn);
     }
 
-    this.getBooksByTitle=function(title){
+    getBooksByTitle(title){
         title=title.toLowerCase();
         return this.db.filter( b=> b.title.toLowerCase().includes(title));
     }
 
-    this.removeBook=function(isbn){
+    removeBook(isbn){
+        console.log(`isbn "${isbn}"`);
         //TODO: implement this logic
+        this.db=this.db.filter(b=>b.isbn!=isbn); //take all book except one with matching ISBN
+        console.log(this.db);
+        this._saveBooks();
     }
 
-    this.updateBook=function(book){
+    updateBook(updatedBook){
         //TODO: implement this logic
+        //take a new array with updated copy of supplied book
+        //and original copy of all other books.
+        //if isbn matches use the new version
+        //else use original version
+        this.db=this.db.map(originalBook=>{
+            if(originalBook.isbn===updateBook.isbn)
+                //we want to update this book with latest changes
+                return updateBook;
+            else
+                //no change in this book. so let us use original
+                return originalBook;
+        });
+        this._saveBooks();
     }
 
 };
