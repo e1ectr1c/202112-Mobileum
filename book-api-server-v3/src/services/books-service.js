@@ -1,15 +1,26 @@
+const db = require('../data/pg-connect');
 
+//console.log('db',db);
 const getAllBooks=async()=>{
 
-    return await [{title:'book1'},{title:'book2'},{title:'book3'}];
+    const result=await db.query('SELECT * FROM books');
+    //console.log('result',result);
+
+    return result.rows;
 
 }
 
 const getBookByIsbn=async(isbn)=>{
     
-    if(!isbn || isNaN(isbn))
-        throw new Error("invalid isbn");
-    return await {isbn, title:"Dummy Title"};
+    
+    let query=`select * from books where isbn='${isbn}'`;
+    console.log('query',query);
+    const result= await db.query(query);
+   // console.log('result',result);
+    if(result.rowCount===0)
+        throw new Error("Book Not Found");
+
+    return result.rows[0];
 }
 
 const addBook=async(book)=>{
