@@ -39,7 +39,10 @@ module.exports = (app) => {
 
     app.post('/api/books',async (request,response)=>{
 
-        let bookData= await promisedReadableStream(request);
+        //let bookData= await promisedReadableStream(request);
+        let book=request.body;
+        
+        
         if(bookService.getBookByIsbn(book.isbn)){
             response.status(400).send({message:`duplicate isbn:${book.isbn}`});
         } else{
@@ -53,6 +56,7 @@ module.exports = (app) => {
     });
 
 
+    
 
     app.get('/api/books/:isbn', (request, response) => {
         
@@ -63,6 +67,17 @@ module.exports = (app) => {
             response.send(book);
         else
             response.status(404).send({ message: 'Book Not found', isbn });
+    });
+
+    app.put('/api/books/:isbn', async(request, response)=>{
+
+        try{
+            const book=await bookService.updateBook(request.body);
+            response.status(202).json(book);  //json sends a json response
+        }catch(error){
+            response.status(400).json({message:error.message});
+        }
+        
     });
 
     app.delete('/api/books/:isbn',(request,response)=>{

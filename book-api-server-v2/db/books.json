@@ -138,5 +138,14 @@
         "description": "The poetic tale Urashi and Puruva",
         "rating": "4",
         "price": "180"
+    },
+    {
+        "title": "Kane and Abel",
+        "author": "Jeffrey Archer",
+        "isbn": "1234577777",
+        "cover": "kane-and-abel.jpg",
+        "description": "One of the greatest seller by Archer",
+        "rating": "4.2",
+        "price": "250"
     }
 ]

@@ -32,9 +32,35 @@ const addBook=async (book)=>{
     await saveBooks();
 }
 
+const updateBook=async(book)=>{
+
+    const dbBook = books.find(b=>b.isbn==book.isbn);
+    if(!dbBook)
+        throw new Error('Invalid ISBN');
+
+    if(dbBook.title!=book.title) 
+        throw new Error('Title change is not permitted');
+
+    if(dbBook.isbn!=book.isbn) 
+        throw new Error('isbn changes are not permitted');
+
+    for(let key in dbBook){
+        if(key==='title')
+            continue; //ignore
+            
+        dbBook[key]=book[key];
+    }
+
+    await saveBooks();
+    return dbBook;
+}
+
+
+
 module.exports={
     getAllBooks,
     getBookByIsbn,
     addBook,
+    updateBook,
     loadBooks
 }
