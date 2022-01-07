@@ -131,15 +131,6 @@
         "price": "200"
     },
     {
-        "title": "Urvashi",
-        "author": "Ramdhari Singh Dinkar",
-        "isbn": "123456889",
-        "cover": "urvashi.jpg",
-        "description": "The poetic tale Urashi and Puruva",
-        "rating": "4",
-        "price": "180"
-    },
-    {
         "title": "Kane and Abel",
         "author": "Jeffrey Archer",
         "isbn": "1234577777",
