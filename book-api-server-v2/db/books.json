@@ -146,6 +146,14 @@
         "cover": "kane-and-abel.jpg",
         "description": "One of the greatest seller by Archer",
         "rating": "4.2",
-        "price": "250"
+        "price": "292"
+    },
+    {
+        "title": "The Mahabharata Project",
+        "author": "Vivek Dutta Mishra",
+        "price": "200",
+        "rating": "4",
+        "isbn": "222222224",
+        "cover": "tmp.jpg"
     }
 ]

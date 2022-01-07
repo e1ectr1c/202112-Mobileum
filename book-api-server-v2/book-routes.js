@@ -1,5 +1,6 @@
 const bookService=require('./book-service');
 const {promisedReadableStream}=require('./utils');
+const {requestLogger} =require('./middlewares');
 
 
 module.exports = (app) => {
@@ -58,10 +59,10 @@ module.exports = (app) => {
 
     
 
-    app.get('/api/books/:isbn', (request, response) => {
+    app.get('/api/books/:isbn', requestLogger, (request, response) => {
         
         const isbn = request.params.isbn; //we automatically get
-        console.log('get called for isbn',isbn);
+       // console.log('get called for isbn',isbn);
         const book = bookService.getBookByIsbn(isbn);
         if (book)
             response.send(book);
@@ -80,9 +81,10 @@ module.exports = (app) => {
         
     });
 
-    app.delete('/api/books/:isbn',(request,response)=>{
+    app.delete('/api/books/:isbn',async(request,response)=>{
         const {isbn}=request.params;
-        console.log('delete called for isbn',isbn);
-        response.send('deleteing book '+request.params.isbn);
+        await bookService.deleteBook(isbn);
+        response.status(204).send();
+         
     });
 };

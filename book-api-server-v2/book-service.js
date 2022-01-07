@@ -55,6 +55,12 @@ const updateBook=async(book)=>{
     return dbBook;
 }
 
+const deleteBook=async(isbn)=>{
+    
+    books=books.filter(book=> book.isbn!=isbn);
+    await saveBooks();
+}
+
 
 
 module.exports={
@@ -62,5 +68,6 @@ module.exports={
     getBookByIsbn,
     addBook,
     updateBook,
-    loadBooks
+    loadBooks,
+    deleteBook
 }

@@ -7,7 +7,21 @@ const promisedReadableStream=(stream)=>{
         let data='';
         stream
             .on('data', buffer=> data+=buffer.toString())
-            .on('end',()=>resolve(JSON.parse(data)))
+            .on('end',()=>{
+
+                try{
+                    let obj=JSON.parse(data);
+                    console.log('json resolved object');
+                    resolve(obj);
+                    
+                } catch(e){
+                    console.log('normal data resturned',data);
+                    resolve(data);
+                }
+
+            })
+            
+            
             .on('error', error=>reject(error));
 
     });
