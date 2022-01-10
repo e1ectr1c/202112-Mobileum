@@ -8,6 +8,7 @@ const _books=[
     "isbn": "9781393495574",
     "title": "The Accursed God",
     "author": "Vivek Dutta Mishra",
+    "authorId":"vivek-dutta-mishra",
     "pages": "380",
     "rating": "4.9",
     "votes": "49",
@@ -31,6 +32,7 @@ const _books=[
     "isbn": "1408855658",
     "title": "Harry Potter and the Philosopher's Stone ",
     "author": "JK Rowling",
+    "authorId":"jkr",
     "pages": "384",
     "rating": "4.7",
     "votes": "8518",
@@ -53,6 +55,7 @@ const _books=[
     "isbn": "0007527519",
     "title": "Five Little Pigs",
     "author": "Agatha Christie",
+    "authorId":"agatha-christie",
     "pages": "288",
     "rating": "4.6",
     "votes": "605",
@@ -76,6 +79,7 @@ const _books=[
     "isbn": "9781408855706",
     "title": "Harry Potter and the Half Blood Prince",
     "author": "JK Rowling",
+    "authorId":"jkr",
     "pages": "560",
     "rating": "4.7",
     "votes": "5651",
@@ -96,6 +100,7 @@ const _books=[
     "isbn": "9781408855690",
     "title": "Harry Potter and the Order of the Phoenix",
     "author": "JK Rowling",
+    "authorId":"jkr",
     "pages": "816",
     "rating": "4.7",
     "votes": "4519",
@@ -113,14 +118,65 @@ const _books=[
   }
 ]
 
+const r=(array)=>{
+    let index=Math.floor( Math.random()*array.length);
+    return array[index];
+}
+
+const createReview=(bookTitle)=>{
+
+    const fname=["Aman","Syed","Arnav","Abhay","Vivek","Arpit","Mansi"];
+    const lname=["Singh","Varma","John","Kumar","Thakur"];
+    let titles=["Great Book","Boring Book","Must Read","Time Pass","Looks Great","Interesting"];
+    let title=r(titles);
+    return {
+        reviewer:`${r(fname)} ${r(lname)}`,
+        rating: Math.floor(Math.random()*11)*0.5,
+        title: title,
+        review:`${bookTitle} is ${title}`
+    }
+}
+
 
 module.exports={
 
     seedData: async()=>{
         console.log('seeding...');
-        const {Book,User}=sequelize.models;
+        const {Book,User,Author,Review}=sequelize.models;
+
+        await Author.create({
+            name:'Vivek Dutta Mishra', 
+            id:'vivek-dutta-mishra',
+            biography:'The Aauthor of The Lost Epic series',
+            photo:'https://randomuser.me/api/portraits/med/men/48.jpg'
+        });
+
+        await Author.create({
+            name:'Agatha Christie', 
+            id:'agatha-christie',
+            biography:'Famous author of suspense novels',
+            photo:'https://randomuser.me/api/portraits/med/women/57.jpg'
+        });
+
+        await Author.create({
+            name:'JK Rowling', 
+            id:'jkr',
+            biography:'The Aauthor of Harry Potter series',
+            photo:'https://randomuser.me/api/portraits/med/women/41.jpg'
+        });
+
+
+
         for(let book of _books){
-            await Book.create(book);
+           
+            let dbBook=await Book.create(book);
+
+            for(let i=0;i<5;i++){
+                let review= await Review.create(createReview(book.title));
+                //update to include bookIsbn in review
+                await dbBook.addReview(review); //add this review to the current book
+            }
+            
         }
 
         await User.create({

@@ -10,7 +10,16 @@ module.exports=(sequelize)=>{
             },
             name:DataTypes.STRING,
             photo:DataTypes.STRING,
-            password:DataTypes.STRING
+            password:DataTypes.STRING,
+            roles:{
+                type:DataTypes.STRING,
+                get:function(){
+                    this.getDataValue('roles').split(',');
+                },
+                set:function(value){
+                    this.setDataValue('roles', value.join(','));
+                }
+            }
 
         });
  

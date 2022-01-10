@@ -16,7 +16,8 @@ module.exports=(sequelize) =>{
             price: DataTypes.INTEGER,
             cover: DataTypes.STRING,
             rating: DataTypes.DOUBLE,
-            details: DataTypes.STRING(5000)
+            details: DataTypes.STRING(5000),
+            tags:DataTypes.JSON,
     
         }
     );

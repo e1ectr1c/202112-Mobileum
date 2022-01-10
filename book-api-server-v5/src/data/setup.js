@@ -21,10 +21,28 @@ const attachModels= async(baseDir)=>{
     }
 }
 
+const setAssociations=async ()=>{
+
+    const {Book,Author,Review}=sequelize.models;
+
+    Author.hasMany(Book,{foreignKey:{ allowNull:false,name:"authorId"}});  
+    Book.belongsTo(Author,{ 
+        foreignKey:{
+            name:'authorId',
+            allowNull:false
+        }
+    }); //Book will automatically get a foreign key "AuthorID"
+
+    Review.belongsTo(Book);
+    Book.hasMany(Review);
+
+};
+
 const force=  getEnv('SYNC_FORCE')=='true';
 const setup=async(baseDir)=>{
 
-    await attachModels(baseDir);
+    await attachModels(baseDir); //create the models
+    await setAssociations();  //set association
     //automatically create the tables if not exists
     //force true will drop table and recreate
     await sequelize.sync({
