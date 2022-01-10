@@ -2,12 +2,13 @@ const {sequelize} = require('../data/connection');
 
 //console.log('sequelize.models',sequelize.models);
 
-const {Book} =sequelize.models;
+
+const {ResponseError,ResponseMessage} = require('../utils/http');
 
 
 //console.log('db',db);
 const getAllBooks=async()=>{
-
+    const {Book} =sequelize.models;
     //const result=await db.query('SELECT * FROM books');
     //console.log('result',result);
 
@@ -18,20 +19,19 @@ const getAllBooks=async()=>{
 }
 
 const getBookByIsbn=async(isbn)=>{
-    
+    const {Book} =sequelize.models;
     const book= await Book.findOne({where:{isbn:isbn}});
     if(book)
         return book;
     else
-        throw new Error('Book Not Found');
+        //throw new Error('Book Not Found');
+        throw new ResponseError('Book Not Found',404);
 }
 
 const addBook=async(book)=>{
-
-    //const dbBook=new Book(book);
-    //await dbBook.save(); //this will save the book in the database    
+    const {Book} =sequelize.models;
     const dbBook=await Book.create(book); //create and save to data base
-    return dbBook;
+    return new ResponseMessage(dbBook,201,{location:`/api/books/${dbBook.isbn}`});
 }
 
 module.exports={
