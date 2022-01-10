@@ -2,7 +2,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 
 
 module.exports=(sequelize) =>{
-    console.log('building the model Book');
+    //console.log('building the model Book');
     sequelize.define(
         "Book", //Name of this model
         {
