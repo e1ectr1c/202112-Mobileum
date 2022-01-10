@@ -21,7 +21,7 @@ const configureRoutes=async(app)=>{
 
 const createApp=async(baseDir)=>{
 
-    await db.setup();
+    await db.setup(baseDir);
     console.log('connected to datase server...');
 
     const app= express();
