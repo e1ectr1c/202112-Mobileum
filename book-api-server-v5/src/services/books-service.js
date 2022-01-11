@@ -12,8 +12,7 @@ const getAllBooks=async()=>{
     //const result=await db.query('SELECT * FROM books');
     //console.log('result',result);
 
-    const books=await Book.findAll();
-
+    const books=await Book.findAll({attributes:['isbn','title','author','price','rating','cover']});
     return books;
 
 }

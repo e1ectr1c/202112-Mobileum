@@ -1,4 +1,8 @@
 const express= require('express');
+const {requestHandler} = require('../utils/http');
+const service = require('../services/author-service');
+
+const {authorize}=require('../services/user-service');
 
 
 module.exports=()=>{
@@ -7,36 +11,18 @@ module.exports=()=>{
 
     router
         .route("/")
-        .get((request,response)=>{
-            response.send([{name:"Author 1,"},{title:"Author 2"},{title:"Author 3"}])
-        })
-        .post((request,response)=>{
-            response.send({id:'new-author',name:'New Author',status:'created'});
-        });
+        .get(requestHandler(service.getAllAuthors))
+        .post(authorize,requestHandler(service.addAuthor));
 
     
     router
         .route("/:id")
-        .get((request,response)=>{
-            const {id}=request.params;
-    
-            response.send({id,title:'Dummy Name'});
-        })
-        .put((request,response)=>{
-            const {id}=request.params;
-    
-            response.send({id: id,title:'Dummy Name',status:'udpated'});
-        })
-        .delete((request,response)=>{
-            const {id}=request.params;
-    
-            response.send({id,name:'Dummy Author',status:'deleted'});
-        });
+        .get(requestHandler(service.getAuthorById))
+        .put(requestHandler(service.updateAuthor))
+        .delete(requestHandler(service.deleteAuthor));
         
-
-
-    
-
+    router
+        .get("/:id/books", requestHandler(service.getBooksByAuthor))
 
     return router;
 

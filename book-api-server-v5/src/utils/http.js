@@ -58,8 +58,38 @@ class ResponseMessage{
     }
 }
 
+const requestHandler= (serviceMethod)=>{
+
+    const controller=async (request, response, next) => {
+        try{
+
+            const argument={
+                model: request.body,
+                ...request.params,
+                ...request.query,
+                request,
+                response,
+                next
+
+            };
+           // console.log('service argument',argument);
+            const result=await serviceMethod(argument);                   
+            ResponseMessage.fromData(result).send(request,response);
+        } catch(error){
+           // console.log('error',error);
+            
+            ResponseError.fromError(error).send(response);
+        }
+    }
+
+    return controller;
+
+}
+
+
 
 module.exports={
     ResponseError,
-    ResponseMessage
+    ResponseMessage,
+    requestHandler
 };
