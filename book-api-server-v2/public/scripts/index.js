@@ -78,17 +78,21 @@
 
 
 
-        function handleSearch() {
+        async function handleSearch() {
             const type = searchType.value;
             const text = searchText.value;
             let result = [];
+            let responsePromise=null;
             switch (type) {
                 case 'isbn':
+                    responsePromise= fetch(`${baseUrl}/${text}`);
                     break;
                  
             }
+            const response=await responsePromise;
+            const book=await response.json();
 
-            populateList(result);
+            populateList([book]);
         }
 
         searchButton.onclick = handleSearch;
