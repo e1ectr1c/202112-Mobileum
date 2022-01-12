@@ -1,0 +1,68 @@
+body{
+    padding:0;
+    margin:0;
+}
+
+h1{
+    font-size:20px;
+    color:orangered;
+}
+
+.site-title{
+    padding-left: 20px;
+    color:orchid;
+    font-size:2em;
+    text-shadow: -2px -2px 2px gray;
+}
+
+AppHeader{
+    background-color:gray;
+}
+
+header{
+    display:flex;
+
+    background-color:black;
+    height:80px;
+}
+
+.app{
+    display:flex;
+    flex-direction:column;
+}
+
+.game{
+    border:2px solid gray;
+    padding:10px;
+    margin-top:30px;
+    width:200px;
+    height:400px;
+    align-self:center;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.board{
+    
+    
+    width:100%;
+    height:200px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    
+}
+.cells{
+    width:180px;
+    
+    
+    
+}
+.cell{
+    width:60px;
+    height:60px;   
+    background-color:white;
+    
+}
