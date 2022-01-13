@@ -66,3 +66,15 @@ header{
     background-color:white;
     
 }
+
+.status{
+    font-size:1.5em;
+    font-weight: bold;
+}
+
+.reset-button{
+    width:100%;
+    background-color:rgb(231, 105, 105);
+    color:white;
+    padding:10px;
+}

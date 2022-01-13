@@ -4,8 +4,8 @@ const Status=(props)=>{
 
 
     return (
-            <div>
-                Status
+            <div className="status">
+                Next Move : {props.next}
             </div>
             );
             
