@@ -2,6 +2,7 @@ import React from 'react';
 import Status from './Status';
 import Board from './Board';
 import {checkGame} from '../services/TicTacToe.js'
+import If from './If.js';
 
 
 class Game extends React.Component {
@@ -15,12 +16,12 @@ class Game extends React.Component {
     }
 
     handleCellClick=(id)=>{
-        //console.log('cell',id,'clicked');
+        console.log('cell',id,'clicked');
         //never change original value directly
         //always work on a duplicate
         const cells= [...this.state.cells];
-        if(cells[id]!=='_')
-            return ; //this value had  earlier.
+        // if(cells[id]!=='_')
+        //     return ; //this value had  earlier.
         
         cells[id]=this.state.next;
         const newResult= checkGame(cells);
@@ -31,7 +32,7 @@ class Game extends React.Component {
         
         //update the state
         this.setState({cells,next});
-        console.log('cell clicked', id);
+       // console.log('cell clicked', id);
     }
 
     getInitialState=(id)=>{
@@ -68,13 +69,15 @@ class Game extends React.Component {
                             onCellClick={this.handleCellClick}/>
 
                     <div className='filler' />
-                    {this.state.result.over?
-                    <button
-                    className="reset-button"
-                    onClick={this.handleReset}
-                    >Reset</button>
-                :null
-                    }
+                    
+                    <If condition={this.state.result.over} >
+                        <button
+                        className="reset-button"
+                        onClick={this.handleReset}
+                        >Reset</button>  
+                    </If>
+
+                   
                     
                 </div>
                 );

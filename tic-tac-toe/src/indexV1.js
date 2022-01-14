@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 
 const Title =(arg)=>{
     //write your logic before returning JSX
-    console.log('arg',arg);
+    //console.log('arg',arg);
     const titleStyle={
         color: arg.color || "black"
     };   

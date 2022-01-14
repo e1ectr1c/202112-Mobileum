@@ -9,8 +9,8 @@ export const checkGame=(cells)=>{
         winningSequence:null, //or [0,1,2],
         movesLeft: cells.filter(cell=>cell==='_').length
     };
-    console.log('cells',cells);
-    console.log('result',result);
+   // console.log('cells',cells);
+   // console.log('result',result);
     
     
     const winningSequences=[

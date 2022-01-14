@@ -34,7 +34,7 @@ class Board extends React.Component {
         
         //update the state
         this.setState({cells,next});
-        console.log('cell clicked', id);
+       // console.log('cell clicked', id);
     }
 
 
