@@ -1,6 +1,7 @@
 import React from 'react';
 import Status from './Status';
 import Board from './Board';
+import {checkGame} from '../services/TicTacToe.js'
 
 
 class Game extends React.Component {
@@ -9,6 +10,7 @@ class Game extends React.Component {
         super(props);
 
         this.state=this.getInitialState();
+
 
     }
 
@@ -21,9 +23,11 @@ class Game extends React.Component {
             return ; //this value had  earlier.
         
         cells[id]=this.state.next;
-
+        const newResult= checkGame(cells);
+        this.setState({result:newResult});
        
         const next=this.state.next==='O'?'X':'O';
+        
         
         //update the state
         this.setState({cells,next});
@@ -31,20 +35,26 @@ class Game extends React.Component {
     }
 
     getInitialState=(id)=>{
-        return {
+        const s={
 
             cells:[  '_','_','_',
                     '_','_','_',
                     '_','_','_'
                 ],
-
             next:'O'
 
         }
+        s.result=checkGame(s.cells); 
+        //default result {over:false, movesLeft:9, winner:null, winningSequence:null}
+
+        return s;
+
     }
 
     handleReset=(id)=>{
-        this.setState(this.getInitialState());
+        if(this.state.result.over)
+            this.setState(this.getInitialState());
+
     }
 
 
@@ -53,13 +63,19 @@ class Game extends React.Component {
 
         return (
                 <div className='game'>
-                    <Status next={this.state.next} />
+                    <Status result={this.state.result} next={this.state.next} />
                     <Board cells={this.state.cells} 
                             onCellClick={this.handleCellClick}/>
+
+                    <div className='filler' />
+                    {this.state.result.over?
                     <button
-                        className="reset-button"
-                        onClick={this.handleReset}
+                    className="reset-button"
+                    onClick={this.handleReset}
                     >Reset</button>
+                :null
+                    }
+                    
                 </div>
                 );
                 
