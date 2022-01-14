@@ -3,6 +3,7 @@ import Status from './Status';
 import Board from './Board';
 import {checkGame} from '../services/TicTacToe.js'
 import If from './If.js';
+import MovesBoard from './MovesBoard';
 
 
 class Game extends React.Component {
@@ -26,6 +27,15 @@ class Game extends React.Component {
         cells[id]=this.state.next;
         const newResult= checkGame(cells);
         this.setState({result:newResult});
+
+        if(newResult.over){
+            this.props.onGameOver(newResult); //inform app game is over.
+        }
+
+        const move={player:this.state.next, position:id+1};
+
+        const moves=[...this.state.moves,move];
+        this.setState({moves});
        
         const next=this.state.next==='O'?'X':'O';
         
@@ -42,7 +52,8 @@ class Game extends React.Component {
                     '_','_','_',
                     '_','_','_'
                 ],
-            next:'O'
+            next:'O',
+            moves:[ ]  //{player:'O', position:2}
 
         }
         s.result=checkGame(s.cells); 
@@ -65,9 +76,13 @@ class Game extends React.Component {
         return (
                 <div className='game'>
                     <Status result={this.state.result} next={this.state.next} />
-                    <Board cells={this.state.cells} 
-                            onCellClick={this.handleCellClick}/>
 
+                    <div className="column-layout">
+                        <Board cells={this.state.cells} 
+                                onCellClick={this.handleCellClick}/>
+
+                        <MovesBoard moves={this.state.moves}/>
+                    </div>
                     <div className='filler' />
                     
                     <If condition={this.state.result.over} >

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Rubik+Beastly&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=The+Nautigal:wght@700&display=swap');
 body{
     padding:0;
     margin:0;
@@ -17,6 +19,7 @@ h1{
 
 AppHeader{
     background-color:gray;
+    
 }
 
 header{
@@ -24,6 +27,7 @@ header{
 
     background-color:black;
     height:80px;
+    font-family: 'The Nautigal', cursive;
 }
 
 .app{
@@ -35,8 +39,8 @@ header{
     border:2px solid gray;
     padding:10px;
     margin-top:30px;
-    width:200px;
-    height:300px;
+    width:400px;
+    height:350px;
     align-self:center;
     display:flex;
     flex-direction:column;
@@ -47,13 +51,42 @@ header{
 .board{
     
     
-    width:100%;
+    padding:10px;
     height:200px;
+    /* border:1px solid blue; */
     display:flex;
-    align-items:center;
-    justify-content:center;
     
 }
+
+.column-layout{
+    display:flex;
+    width:100%;
+    /* border:1px solid red; */
+    justify-content:space-around;
+}
+
+.moves-board{
+  /*  border:1px solid green;*/
+    width:45%;
+    
+    padding:10px;
+}
+.moves-board table{
+    width:100%;
+    border:1px solid green;
+}
+
+.moves-board th{
+    background-color:orchid;
+    color:black;
+     
+}
+
+.moves-board td{
+    border:1px solid orchid;
+}
+
+
 .cells{
     width:180px;
     
@@ -65,6 +98,11 @@ header{
     height:60px;   
     background-color:white;
     cursor: pointer;
+    /* font-family: 'Rubik Beastly', cursive; */
+    font-family: 'Indie Flower', cursive;
+    font-weight: bold;
+    
+    font-size:30px;
     
 }
 
@@ -82,4 +120,48 @@ header{
     padding:10px;
     
     height:40px;
+}
+
+.score-board{
+    align-self:center;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    background-color:black;
+    color:white;
+    border-radius:5px;
+    margin:5px;
+    box-shadow:-5px 5px 5px lightgray;
+
+
+}
+
+.score-board h2{
+    font-family: 'The Nautigal', cursive;
+    font-size:1.5em; 
+    color:orchid
+}
+.score-board table{
+    border:1px solid green;
+    
+
+}
+
+.score-board th{
+    background-color:orchid;
+    padding:5px;
+}
+
+
+.score-board td{
+    border:1px solid green;
+    text-align: center;
+    font-weight: bold;
+}
+
+.clock{
+    color:orchid;
+    /* border:1px solid red; */
+    align-self:center;
+    font-size: 30px;
 }
