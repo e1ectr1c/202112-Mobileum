@@ -1,6 +1,9 @@
 import React from 'react';
+import BookListComponent from '../components/BookListComponent';
+import BookDetailsComponent from '../components/BookDetailsComponent';
 
-const BookListScreen=({})=>{
+
+const BookListInfoScreen=({})=>{
     //TODO: Initialize Here
     const books=[
         {
@@ -116,23 +119,18 @@ const BookListScreen=({})=>{
     ]
 
     return (
-        <div className='BookListScreen'>
-            <h1>Book List</h1>
-
-            <ul>
-                {books.map(book=>(
-                    
-                    <li key={book.isbn}>
-                        <img src={book.cover} alt={book.title}/>
-                        {book.title}
-                    </li>
-                ))}
-            </ul>
-
+        <div className='BookListInfoScreen'>
+            <h1>Book List Info</h1>
+            <div className='row'>
+                <div className='col col-3'>
+                    <BookListComponent books={books}/>
+                </div>
+                <div className='col col-9'>
+                    <BookDetailsComponent book={books[0]}/>
+                </div>
+            </div>
         </div>
     );
 }
 
-export default BookListScreen;
-
-
+export default BookListInfoScreen;
