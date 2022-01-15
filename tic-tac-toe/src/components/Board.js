@@ -12,6 +12,7 @@ class Board extends React.Component {
                         {this.props.cells.map((cell,index)=>(
 
                             <Cell value={cell} 
+                                result={this.props.result}
                                 onCellClick={this.props.onCellClick} 
                                 key={index}
                                 id={index} />

@@ -58,7 +58,7 @@ header{
     
     padding:10px;
     height:200px;
-    /* border:1px solid blue; */
+     /* border:1px solid blue;  */
     display:flex;
     
 }
@@ -105,9 +105,9 @@ header{
     cursor: pointer;
     /* font-family: 'Rubik Beastly', cursive; */
     font-family: 'Indie Flower', cursive;
-    font-weight: bold;
-    
+    font-weight: bold;    
     font-size:30px;
+    border:0px;
     
 }
 

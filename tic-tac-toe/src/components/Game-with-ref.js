@@ -13,15 +13,18 @@ class Game extends React.Component {
         super(props);
 
         this.state=this.getInitialState();
-
+        this.oTimerRef=React.createRef();
+        this.xTimerRef=React.createRef();
 
     }
 
     handleCellClick=(id)=>{
+
+        if(!this.state.running){
+            return alert('Game is not running. Hit Start');
+        }
+
         console.log('cell',id,'clicked');
-        if(!this.state.running) 
-            return alert('Hit Start to Continue');
-        
         //never change original value directly
         //always work on a duplicate
         const cells= [...this.state.cells];
@@ -29,12 +32,26 @@ class Game extends React.Component {
         //     return ; //this value had  earlier.
         
         cells[id]=this.state.next;
-        const newResult= checkGame(cells);
-        this.setState({result:newResult});
-
+        let newResult= checkGame(cells);
+        
         if(newResult.over){
+
+            if(!newResult.winner){
+                //statlemate
+                if(this.oTimerRef.current.state.cs<this.xTimerRef.current.state.cs){
+                    newResult.winner="O";
+                } else if(this.oTimerRef.current.state.cs>this.xTimerRef.current.state.cs){
+                    newResult.winner="X";
+                }
+            }
             this.props.onGameOver(newResult); //inform app game is over.
+            //stop the last running watch
+            this.toggleWatches(this.state.next);
+        } else {
+            this.toggleWatches();
         }
+
+        this.setState({result:newResult});
 
         const move={player:this.state.next, position:id+1};
 
@@ -49,17 +66,16 @@ class Game extends React.Component {
        // console.log('cell clicked', id);
     }
 
-    getInitialState=(next='-',running=false,previousStart)=>{
+    getInitialState=(running=false, next='-')=>{
         const s={
 
             cells:[  '_','_','_',
                     '_','_','_',
                     '_','_','_'
                 ],
-            previousStart:previousStart,
             next:next,
-            running:running,
-            moves:[ ]  //{player:'O', position:2}
+            moves:[ ],  //{player:'O', position:2}
+            running:running
 
         }
         s.result=checkGame(s.cells); 
@@ -69,17 +85,34 @@ class Game extends React.Component {
 
     }
 
-    handleStart=(id)=>{
-        console.log('previous start',this.state.previousStart);
+    toggleWatches=(id)=>{
 
-        let next=this.state.previousStart==='O'?'X':'O';
-        console.log('next start',next);
-        if(this.state.result.over || this.state.result.movesLeft===9){
-            this.setState(this.getInitialState(next,true,next));           
+        
+        if(id){
+            if(id==='O')
+                this.oTimerRef.current.toggleState();
+            else
+                this.xTimerRef.current.toggleState();
+        } else{
+            this.oTimerRef.current.toggleState();
+            this.xTimerRef.current.toggleState();
         }
-            
+    }
+    
+
+    handleStart=(id)=>{
+        let next=this.state.next==='O'?'X':'O';
+        if(this.state.result.over || this.state.result.movesLeft===9){
+         
+            this.setState(this.getInitialState(true,next));
+            this.xTimerRef.current.reset();
+            this.oTimerRef.current.reset();   
+            this.toggleWatches(next);
+
+        }
 
     }
+
 
     render=()=>{
 
@@ -88,17 +121,13 @@ class Game extends React.Component {
                 <div className='game'>
                     
                     <div className='column-layout game-header'>
-                    <StopWatch label="O"  
-                        running={this.state.next==='O'} 
-                        />
+                    <StopWatch ref={this.oTimerRef} label="O" />
                     <Status result={this.state.result} next={this.state.next} />
-                    <StopWatch  label="X" 
-                        running={this.state.next==='X'} />
+                    <StopWatch ref={this.xTimerRef} label="X" />
 
                     </div>
                     <div className="column-layout">
                         <Board cells={this.state.cells} 
-                                result={this.state.result}
                                 onCellClick={this.handleCellClick}/>
 
                         <MovesBoard moves={this.state.moves}/>
@@ -108,11 +137,11 @@ class Game extends React.Component {
                     
                     </div>
                     
-                    <If condition={this.state.result.over|| this.state.result.movesLeft===9} >
+                    <If condition={this.state.result.over||this.state.result.movesLeft===9} >
                         <button
                         className="reset-button"
                         onClick={this.handleStart}
-                        >Start</button>  
+                        >New Game</button>  
                     </If>
 
                    

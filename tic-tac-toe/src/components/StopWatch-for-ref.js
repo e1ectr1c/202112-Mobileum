@@ -3,26 +3,10 @@ import If from './If';
 
 class StopWatch extends React.Component {
 
-    constructor(props){
-        super(props);
-
-        this.state={
-            cs:0, //1/100 of  a second;
-            running:this.props.running,
-        }
+    state={
+        cs:0, //1/100 of  a second;
+        running:false,
     }
-
-   static getDerivedStateFromProps(newProps,newState){
-
-        if(newProps.running!==newState.running){
-            //running value toggled recently in props
-            //update the state based on the prop
-            return {running:newProps.running};
-        } else{
-            return null;
-        }
-        
-   }
 
     componentDidMount(){
         this.id=setInterval(() =>{
