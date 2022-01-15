@@ -1,0 +1,42 @@
+
+@import "./variables";
+
+.App{
+    display:flex;
+    flex-direction:column;
+    height:100%;
+}
+
+.AppHeader{
+    background-color:$primary_color;
+    color:$primary_contrast_color;
+}
+
+
+
+.Screen{
+    margin:10px;
+    /* border:1px solid gray; */
+    flex:1;
+
+    h1{
+        color:$primary_color
+    }
+}
+
+
+
+.footer{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color:$primary_color;
+    color: $primary_contrast_color;
+    text-align: center;
+}
+
+.navbar-light .navbar-brand{
+    color: $primary_contrast_color !important;
+    font-weight: bold;
+}
