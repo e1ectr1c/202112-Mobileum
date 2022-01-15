@@ -13,17 +13,11 @@ class Game extends React.Component {
         super(props);
 
         this.state=this.getInitialState();
-        this.oTimerRef=React.createRef();
-        this.xTimerRef=React.createRef();
+
 
     }
 
     handleCellClick=(id)=>{
-
-        if(!this.state.running){
-            return alert('Game is not running. Hit Start');
-        }
-
         console.log('cell',id,'clicked');
         //never change original value directly
         //always work on a duplicate
@@ -32,26 +26,12 @@ class Game extends React.Component {
         //     return ; //this value had  earlier.
         
         cells[id]=this.state.next;
-        let newResult= checkGame(cells);
-        
-        if(newResult.over){
-
-            if(!newResult.winner){
-                //statlemate
-                if(this.oTimerRef.current.state.cs<this.xTimerRef.current.state.cs){
-                    newResult.winner="O";
-                } else if(this.oTimerRef.current.state.cs>this.xTimerRef.current.state.cs){
-                    newResult.winner="X";
-                }
-            }
-            this.props.onGameOver(newResult); //inform app game is over.
-            //stop the last running watch
-            this.toggleWatches(this.state.next);
-        } else {
-            this.toggleWatches();
-        }
-
+        const newResult= checkGame(cells);
         this.setState({result:newResult});
+
+        if(newResult.over){
+            this.props.onGameOver(newResult); //inform app game is over.
+        }
 
         const move={player:this.state.next, position:id+1};
 
@@ -66,16 +46,15 @@ class Game extends React.Component {
        // console.log('cell clicked', id);
     }
 
-    getInitialState=(running=false, next='-')=>{
+    getInitialState=(id)=>{
         const s={
 
             cells:[  '_','_','_',
                     '_','_','_',
                     '_','_','_'
                 ],
-            next:next,
-            moves:[ ],  //{player:'O', position:2}
-            running:running
+            next:'O',
+            moves:[ ]  //{player:'O', position:2}
 
         }
         s.result=checkGame(s.cells); 
@@ -85,31 +64,9 @@ class Game extends React.Component {
 
     }
 
-    toggleWatches=(id)=>{
-
-        
-        if(id){
-            if(id==='O')
-                this.oTimerRef.current.toggleState();
-            else
-                this.xTimerRef.current.toggleState();
-        } else{
-            this.oTimerRef.current.toggleState();
-            this.xTimerRef.current.toggleState();
-        }
-    }
-    
-
-    handleStart=(id)=>{
-        let next=this.state.next==='O'?'X':'O';
-        if(this.state.result.over || this.state.result.movesLeft===9){
-         
-            this.setState(this.getInitialState(true,next));
-            this.xTimerRef.current.reset();
-            this.oTimerRef.current.reset();   
-            this.toggleWatches(next);
-
-        }
+    handleReset=(id)=>{
+        if(this.state.result.over)
+            this.setState(this.getInitialState());
 
     }
 
@@ -121,9 +78,9 @@ class Game extends React.Component {
                 <div className='game'>
                     
                     <div className='column-layout game-header'>
-                    <StopWatch ref={this.oTimerRef} label="O" />
+                    <StopWatch label="O" />
                     <Status result={this.state.result} next={this.state.next} />
-                    <StopWatch ref={this.xTimerRef} label="X" />
+                    <StopWatch  label="X" />
 
                     </div>
                     <div className="column-layout">
@@ -137,11 +94,11 @@ class Game extends React.Component {
                     
                     </div>
                     
-                    <If condition={this.state.result.over||this.state.result.movesLeft===9} >
+                    <If condition={this.state.result.over} >
                         <button
                         className="reset-button"
-                        onClick={this.handleStart}
-                        >New Game</button>  
+                        onClick={this.handleReset}
+                        >Reset</button>  
                     </If>
 
                    

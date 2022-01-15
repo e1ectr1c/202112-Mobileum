@@ -6,7 +6,7 @@ const AppHeader=(props)=>{
 
     return <header className="column-layout">
                 <h1 className='site-title'>{props.title}</h1>
-                <Clock/>
+               
             </header>;
 }
 
