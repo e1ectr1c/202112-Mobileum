@@ -118,15 +118,17 @@ const BookListInfoScreen=({})=>{
       }
     ]
 
+    const [book,selectBook] =React.useState(books[0]);
+
     return (
         <div className='BookListInfoScreen'>
             <h1>Book List Info</h1>
             <div className='row'>
                 <div className='col col-3'>
-                    <BookListComponent books={books}/>
+                    <BookListComponent onSelect={selectBook} books={books} book={book}/>
                 </div>
                 <div className='col col-9'>
-                    <BookDetailsComponent book={books[0]}/>
+                    <BookDetailsComponent book={book}/>
                 </div>
             </div>
         </div>
