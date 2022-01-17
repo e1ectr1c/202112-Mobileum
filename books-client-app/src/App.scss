@@ -1,5 +1,5 @@
 
-@import "./variables";
+@import "./theme02";
 
 .App{
     display:flex;
@@ -9,22 +9,78 @@
 
 .AppHeader{
     background-color:$primary_color;
-    color:$primary_contrast_color;
+    color:$header_color;
+
+    .btn-outline-success{
+        color: $header_text_color;
+        border-color: $header_text_color;
+    }
+    .dropdown-menu{
+        background-color:$primary_color;
+        
+    }
+    .dropdown-item{
+        color:$header_text_color;
+    }
+    .dropdown-item:focus, .dropdown-item:hover{
+        background-color:$orange-yellow-crayola;
+        color:$secondary_contrast_color;
+    }
+
 }
 
+.navbar-light .navbar-brand{
+    color:$site_title_color;
+    font-family:$site_title_font;
+}
+
+.navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link,
+.navbar-light .navbar-nav .nav-link
+{
+    color:$header_text_color;
+    font-weight: bold;
+}
+
+.list-group-item {
+    background-color:$secondary_color;
+}
+
+.list-group-item-action:hover{
+    background-color:$secondary_highlight_color;
+}
+
+.list-group-item.active{
+    background-color:$primary_color;
+}
+
+
+
+
+
+body{
+    background-color:$secondary_color;
+    font-family: $general-font;
+}
 
 
 .Screen{
     margin:10px;
     /* border:1px solid gray; */
     flex:1;
+    
 
     h1{
-        color:$primary_color
+        font-size:2em;
+        color:$screen_title;
+        font-family: $screen_title_font;
+    }
+    h2{
+        font-size:1.5em;        
+        font-family: $screen_subtitle_font;
     }
     h3{
-        font-size:1.5 em;
-        font-style: italic;
+        font-size:1em;        
+        font-family: $screen_h3_font;
     }
     .badge{
         margin:2px;
@@ -38,15 +94,12 @@
     left: 0;
     bottom: 0;
     width: 100%;
+    font-weight: bold;
     background-color:$primary_color;
     color: $primary_contrast_color;
     text-align: center;
 }
 
-.navbar-light .navbar-brand{
-    color: $primary_contrast_color !important;
-    font-weight: bold;
-}
 
 .BookListScreen{
     li{

@@ -1,4 +1,6 @@
 import React from 'react';
+import {withTitle} from '../hoc/with-title';
+import withVisibility from '../hoc/with-visibility';
 
 const BookListScreen=({})=>{
     //TODO: Initialize Here
@@ -114,11 +116,9 @@ const BookListScreen=({})=>{
         "reviews": []
       }
     ]
-
     return (
+      
         <div className='BookListScreen'>
-            <h1>Book List</h1>
-
             <ul>
                 {books.map(book=>(
                     
@@ -130,9 +130,12 @@ const BookListScreen=({})=>{
             </ul>
 
         </div>
+      
     );
 }
-
-export default BookListScreen;
+//export default BookListScreen; 
+export default withVisibility(
+                    withTitle(BookListScreen,"Book List Screen")
+                    );
 
 

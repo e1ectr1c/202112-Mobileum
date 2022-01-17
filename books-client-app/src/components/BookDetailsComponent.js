@@ -6,7 +6,7 @@ const BookDetailsComponent = ({ book }) => {
     return (
         <div className='BookDetailsScreen'>
             <h1>{book.title}</h1>
-            <h3>by {book.author}</h3>
+            <h2>by {book.author}</h2>
             <div className='row'>
                 <div className='col col-7'>
                     <h3>Meta</h3>
