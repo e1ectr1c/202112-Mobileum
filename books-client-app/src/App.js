@@ -9,8 +9,8 @@ const App=({})=>{
     return <div className="App">
                <AppHeader title="World Wide Books" />
                <div className='Screen'>
-                    <BookListScreen visibility={false}   screenTitle="Books" />
-                    
+                    <BookListScreen visibility={false}  screenTitle="Books" />
+                    <BookDetailsScreen />
                </div>
                <AppFooter />
             </div>
