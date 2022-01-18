@@ -108,9 +108,15 @@ body{
         margin:10px;
     }
     img{
-        height:80px;
+        width:90%;        
         margin:5px;
         box-shadow: -2px -2px 2px $primary_color;
+    }
+    a{
+        color:$secondary_contrast_color;
+        font-size:1.2em;
+        font-weight:bold;
+        font-family:$el_messiri;
     }
 }
 
@@ -130,4 +136,20 @@ body{
     border-radius:50px;
     border:10px solid $primary_color;
     box-shadow:5px 5px 5px $secondary_contrast_color;
+}
+
+.NotFoundScreen{
+    img{
+        width:300px;
+        border:10px solid $primary_color;
+        border-radius: 20px;
+        box-shadow: -5px 5px 5px $secondary_contrast_color;
+    }
+}
+.Loading{
+    img{
+        border:0px;
+        box-shadow: 0px 0px 0px;
+        height:100px;
+    }
 }

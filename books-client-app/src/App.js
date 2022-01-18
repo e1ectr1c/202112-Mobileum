@@ -10,38 +10,28 @@ import UserRegistrationScreen from './screens/UserRegistrationScreen';
 import HomeScreen from './screens/HomeScreen';
 import NotFoundScreen from './screens/NotFoundScreen';
 
-import { books } from './services/book-service';
 
-const App = ({ }) => {
 
-     const [screen, selectScreen] = useState("USER REGISTER");
-     const [allBooks, updateBooks] = useState(books);
-     const [book, selectBook] = useState(null);
-
-     const handleBookSelect = (book) => {
-          selectBook(book);
-          selectScreen("BOOK DETAILS");
-     }
-
-     const handleBookSave = (book) => {
-          updateBooks([...allBooks, book]);
-          selectScreen("BOOK LIST");
-     }
+const App = () => {
 
 
      return (
      <div className="App">
           <Router>
-               <AppHeader title="World Wide Books" navigate={selectScreen} />
+               <AppHeader title="World Wide Books"  />
                <div className='Screen'>
 
                     <Routes>
                          <Route path="/" element={<HomeScreen />} />
+                         <Route path="/book/info/:isbn" element={<BookDetailsScreen/>} />
                          <Route path="/book/list" element={<BookListScreen />} />
                          <Route path="/book/add" element={<BookAddScreen />} />
+                         
 
                          <Route path="/user/login" element={<UserLoginScreen />} />
                          <Route path="/user/register" element={<UserRegistrationScreen />} />
+
+                         <Route path='/not-found' element={<NotFoundScreen />} />
 
                          <Route path="*" element={<NotFoundScreen />} />
                     </Routes>

@@ -1,4 +1,6 @@
-export const books = [
+import delay from '../utils/delay';
+
+const seedData = [
     {
       "_id": {
         "$oid": "5f4fc2136980a8fb2b76e857"
@@ -110,3 +112,53 @@ export const books = [
       "reviews": []
     }
 ]
+
+
+class BookService{
+
+  constructor(){
+    this._load();
+  }
+
+  _load=()=>{
+    try{
+      let json=localStorage.getItem("books");
+      if(json)
+        this.books=JSON.parse(json);
+      else
+        throw new Error("No Key found");
+    }catch(e){
+      this.books=seedData;
+      this._save();
+    }
+  }
+
+  _save=()=> {
+    localStorage.setItem('books', JSON.stringify(this.books));
+  }
+
+  addBook=async (book)=>{
+    await delay(2000);
+    this.books.push(book);
+    this._save();
+  }
+
+  getAllBooksSync=()=>{
+   
+    return this.books;
+  }
+
+  getAllBooks=async()=>{
+    await delay(2000);
+    return this.books;
+  }
+
+
+  getBookByIsbn=async(isbn)=>{
+    await delay(5000);
+    return this.books.find(book=>book.isbn===isbn);
+  }
+
+}
+
+export default new BookService();
