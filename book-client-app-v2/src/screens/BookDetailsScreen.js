@@ -20,11 +20,7 @@ const BookDetailsScreen = (props) => {
 
         service
             .getBookByIsbn(params.isbn)
-            .then(setBook)
-            .catch(error=>{
-                console.log('error in getbookbyisbn',error.message);
-                setBook(undefined);
-            });
+            .then(setBook);
 
     },[params.isbn]);
 

@@ -14,20 +14,13 @@ const BookListScreen = () => {
   //  const books=bookService.getBooks();
 
   const [books, setBooks] = useState(null);
-  const [error,setError]=useState(null);
+
   useEffect(() => {
 
-    bookService
-          .getAllBooks()
-          .then(b => setBooks(b))
-          .catch(e=>setError(e.message));
+    bookService.getAllBooks().then(b => setBooks(b));
 
 
   }, []);
-
-  if(error){
-    return <p>Error Fetching data:{error}. Please try later</p>;
-  }
 
   if (!books)
     return <Loading />;
