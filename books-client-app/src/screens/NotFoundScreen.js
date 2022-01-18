@@ -7,12 +7,16 @@ const NotFoundScreen=({})=>{
     //TODO: Initialize Here
     
     const location=useLocation();
-    console.log('location',location);
-    const error=location.pathname
-
+  //  console.log('location',location); 
+    
+   const query = new URLSearchParams(location.search);
+   const error=query.get('error') || "Not Found";
+   const key=query.get('key') || location.pathname;
+   
+   
     return (
         <div className='NotFoundScreen'>
-            <h1>Not Found:  {error}</h1>
+            <h1>{error} : {key}</h1>
             
             <div className='row'>
                 <div className='col col-6'>

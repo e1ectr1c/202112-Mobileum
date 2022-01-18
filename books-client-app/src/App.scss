@@ -34,6 +34,11 @@
     font-family:$site_title_font;
 }
 
+.text-danger{
+    color: $danger_color !important;
+    font-weight: bold;
+}
+
 .navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link,
 .navbar-light .navbar-nav .nav-link
 {
@@ -150,6 +155,6 @@ body{
     img{
         border:0px;
         box-shadow: 0px 0px 0px;
-        height:100px;
+        
     }
 }

@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
 //import {withRouter} from 'react-router-dom'; //removed in react-router-dom v6
-import {useParams,useNavigate} from 'react-router-dom'; //rem
+import {useParams,useNavigate,Navigate} from 'react-router-dom'; //rem
 
 import {Timer} from '../components/Timer';
 import withVisibility from '../hoc/with-visibility';
@@ -13,7 +13,7 @@ const BookDetailsScreen = (props) => {
     const [book,setBook]=useState(null);
     const navigate=useNavigate();
 
-    console.log('navigate',navigate);
+    //console.log('navigate',navigate);
     
 
     useEffect(()=>{
@@ -26,8 +26,9 @@ const BookDetailsScreen = (props) => {
 
     //if book is not found
     if(book===undefined){
-        navigate("/not-found?isbn="+params.isbn);
-        return null;
+        // navigate("/not-found?error=No book with given isbn&key="+params.isbn);
+        // return null;
+        return <Navigate to={`/not-found?error=No book with given isbn&key=${params.isbn}`} />;
     }
 
     

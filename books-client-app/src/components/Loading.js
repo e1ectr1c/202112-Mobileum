@@ -1,18 +1,19 @@
 import React from 'react';
 import withVisibility from '../hoc/with-visibility';
 
-const Loading=({image,title})=>{
+const Loading=({image,title, width=100})=>{
     //TODO: Initialize Here
     
     if(!image)
         image='/images/loading2.gif';
 
+    let style={width};
 
     return (
-        <div className='Loading'>
-            <img src={image} alt={title||'loading'} />
+        <span style={style}className='Loading'>
+            <img style={style} src={image} alt={title||'loading'} />
             {title}
-        </div>
+        </span>
     );
 }
 

@@ -139,6 +139,17 @@ class BookService{
 
   addBook=async (book)=>{
     await delay(2000);
+    console.log('book in add book',book);
+    
+    if(!book || !book.isbn || !book.title || !book.author)
+      throw new Error('Invalid Book Details');
+
+    let existing= await this.getBookByIsbn(book.isbn);
+
+    if(existing)
+      throw new Error('Book already exists with this isbn '+book.isbn);
+
+    
     this.books.push(book);
     this._save();
   }
