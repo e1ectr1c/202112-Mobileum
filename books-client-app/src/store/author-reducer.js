@@ -10,7 +10,7 @@ export const authorsReducer=( authors=[], action)=>{
             return [...authors,action.payload];
 
         case AuthorActions.REMOVE: //{type: AuthorActions.REMOVE, payload:authorId}
-            return authors.filter(a=>a.id!===action.payload);
+            return authors.filter(a=>a.id!==action.payload);
 
 
         default: return authors;
