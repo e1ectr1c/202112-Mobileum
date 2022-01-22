@@ -1,42 +1,42 @@
-import React,{useState,useEffect} from 'react';
+import React,{useEffect} from 'react';
 //import {withRouter} from 'react-router-dom'; //removed in react-router-dom v6
 import {useParams,useNavigate,Navigate} from 'react-router-dom'; //rem
 
-import {Timer} from '../components/Timer';
-import withVisibility from '../hoc/with-visibility';
 import Loading from '../components/Loading';
-import service from '../services/book-service';
+import {useSelector,useDispatch} from 'react-redux';
+import {getBookByIsbn} from '../store/book-actions';
+import {Status} from '../store/constants';
+
+
+
 
 const BookDetailsScreen = (props) => {
     //TODO: Initialize Here
     const params=useParams();
-    const [book,setBook]=useState(null);
-    const navigate=useNavigate();
-
-    //console.log('navigate',navigate);
     
+    const navigate=useNavigate();
+    const {status,selectedBook}=useSelector(s=>s);
+
+    const dispatch=useDispatch();
 
     useEffect(()=>{
-
-        service
-            .getBookByIsbn(params.isbn)
-            .then(setBook)
-            .catch(error=>{
-                console.log('error in getbookbyisbn',error.message);
-                setBook(undefined);
-            });
-
+        console.log('getting books');
+        getBookByIsbn(params.isbn)(dispatch);
     },[params.isbn]);
 
-    //if book is not found
-    if(book===undefined){
+    if(status.status===Status.ERROR){
         // navigate("/not-found?error=No book with given isbn&key="+params.isbn);
         // return null;
         return <Navigate to={`/not-found?error=No book with given isbn&key=${params.isbn}`} />;
     }
 
-    
-    if(book===null) return <Loading title={`searching isbn: ${params.isbn}`} />
+    console.log('status',status);
+
+    const book=selectedBook;
+
+
+    if(book===null || status.status===Status.WAITING) 
+            return <Loading title={`searching isbn: ${params.isbn}`} />
 
     return (
 

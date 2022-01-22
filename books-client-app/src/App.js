@@ -10,6 +10,8 @@ import UserRegistrationScreen from './screens/UserRegistrationScreen';
 import HomeScreen from './screens/HomeScreen';
 import NotFoundScreen from './screens/NotFoundScreen';
 import AuthorManageScreen from './screens/AuthorManageScreen';
+import store from './store/store';
+import {Provider} from 'react-redux';
 
 
 const App = () => {
@@ -43,4 +45,17 @@ const App = () => {
      </div>)
 };
 
-export default App;
+
+const ReduxApp=()=>{
+
+     return (
+          <Provider store={store}>
+               <App/>
+          </Provider>
+
+     );
+}
+
+
+
+export default ReduxApp;

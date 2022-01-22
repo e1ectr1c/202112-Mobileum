@@ -6,6 +6,7 @@ const getAuthorRouter=require('./routers/author-router');
 const getUserRouter=require('./routers/user-router');
 const {tokenChecker} =require('./services/user-service');
 const cors=require('cors');
+const fs =require('fs');
 
 
 const configureMiddlewares=async(app,baseDir)=>{
@@ -23,8 +24,22 @@ const configureRoutes=async(app)=>{
     app.use('/api/authors', getAuthorRouter());
     app.use('/api/users',getUserRouter());
 
+
+    
 };
 
+const configureSPARoute=(app, baseDir)=>{
+
+    app.get("*", (request,response)=>{
+
+        //for every other request send the index.html to the client
+        const indexFile=path.join(baseDir,"public","index.html");
+        fs.createReadStream(indexFile).pipe(response);
+
+    });
+
+
+}
 
 const createApp=async(baseDir)=>{
 
@@ -36,6 +51,9 @@ const createApp=async(baseDir)=>{
     await configureMiddlewares(app,baseDir);
 
     await configureRoutes(app);
+
+    //add after all other routes
+    await configureSPARoute(app,baseDir);
 
     return app;
 }

@@ -1,37 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import { withTitle } from '../hoc/with-title';
 import withVisibility from '../hoc/with-visibility';
-import { withTimer } from '../components/Timer';
-import bookService from '../services/book-service';
+
+import {useSelector,useDispatch} from 'react-redux';
 import Loading from '../components/Loading';
 import { Link } from 'react-router-dom';
+import {Status} from '../store/constants';
+
+import {getAllBooks} from '../store/book-actions';
+
 
 
 const BookListScreen = () => {
-  //TODO: Initialize Here
-  //const books= bookService.getAllBooksSync(); //works for syncrhonous service
-  // console.log('books',books);
-  //  const books=bookService.getBooks();
 
-  const [books, setBooks] = useState(null);
-  const [error,setError]=useState(null);
-  useEffect(() => {
+  
+  const {books,status}= useSelector(state=>state);
+  const dispatch=useDispatch();
+  
+  console.log('books',books);
+  console.log('status',status);
 
-    bookService
-          .getAllBooks()
-          .then(b => setBooks(b))
-          .catch(e=>setError(e.message));
-
-
-  }, []);
-
-  if(error){
-    return <p>Error Fetching data:{error}. Please try later</p>;
+  const getBooks=()=>{
+    getAllBooks()(dispatch);
   }
 
-  if (!books)
-    return <Loading />;
+  useEffect(()=>{
+    getBooks();
 
+  },[]);
+  
+  if(status.status===Status.WAITING)
+      return <Loading/>
+
+  if(status.status===Status.ERROR){
+    return (<div>
+              <p className="text text-danger">{status.error.message}</p>
+              <button className='btn btn-primary' onClick={getBooks}>Retry</button>
+            </div>)
+  }
 
   //let date=new Date();
   return (
@@ -57,9 +63,9 @@ const BookListScreen = () => {
 //export default BookListScreen; 
 export default
   withVisibility(
-    withTimer(
+   
       withTitle(BookListScreen, "Recommended Books")
-    )
+  
   );
 
 
