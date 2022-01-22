@@ -9,7 +9,7 @@ import UserLoginScreen from './screens/UserLoginScreen';
 import UserRegistrationScreen from './screens/UserRegistrationScreen';
 import HomeScreen from './screens/HomeScreen';
 import NotFoundScreen from './screens/NotFoundScreen';
-import AuthorManageScreen from './screens/AuthorManageScreen';
+
 
 
 const App = () => {
@@ -26,7 +26,7 @@ const App = () => {
                          <Route path="/book/info/:isbn" element={<BookDetailsScreen/>} />
                          <Route path="/book/list" element={<BookListScreen />} />
                          <Route path="/book/add" element={<BookAddScreen />} />
-                         <Route path="/author/manage" element={<AuthorManageScreen/>} />
+                         
 
                          <Route path="/user/login" element={<UserLoginScreen />} />
                          <Route path="/user/register" element={<UserRegistrationScreen />} />

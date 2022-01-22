@@ -18,9 +18,6 @@ const AppHeader = ({ title,navigate }) => {
                 <li className="nav-item active" data-toggle="collapse" data-target="#navbarSupportedContent">
                     <Link className="nav-link" to="/book/add">Add Book <span className="sr-only">(current)</span></Link>
                 </li>
-                <li className="nav-item active" data-toggle="collapse" data-target="#navbarSupportedContent">
-                    <Link className="nav-link" to="/author/manage">Manage Authors<span className="sr-only">(current)</span></Link>
-                </li>
             </ul>
             
             <form className="form-inline my-2 my-lg-0">

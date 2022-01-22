@@ -1,6 +1,11 @@
-import axios from './axios';
+import getHttp from './axios';
+
+
 
 class BookService{
+
+  
+
  
 
   addBook=async (book)=>{
@@ -11,20 +16,25 @@ class BookService{
       throw new Error('Invalid Book Details');
 
     //todo: implement add book later
-    let response = await axios.post('/books',book);    
-    return response.data;
+    let axios=await getHttp();
+    let response = await axios.post('/books',book);
+    
 
   }
 
+
   getAllBooks=async()=>{
     console.log('getting data from server');
+    let axios= await getHttp();
     let response= await axios.get("/books");  // /api/books;
     console.log('response.data',response.data);
     return response.data;
    
   }
 
+
   getBookByIsbn=async(isbn)=>{
+    let axios=await getHttp();
     let response=await axios.get(`/books/${isbn}`);
     console.log('isbn',response.data);
     return response.data;
