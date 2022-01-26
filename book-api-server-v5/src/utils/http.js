@@ -73,10 +73,12 @@ const requestHandler= (serviceMethod)=>{
 
             };
            // console.log('service argument',argument);
-            const result=await serviceMethod(argument);                   
+            const result=await serviceMethod(argument);   
+           // console.log('response to client',result);
+                            
             ResponseMessage.fromData(result).send(request,response);
         } catch(error){
-           // console.log('error',error);
+           //console.log('error',error);
             
             ResponseError.fromError(error).send(response);
         }

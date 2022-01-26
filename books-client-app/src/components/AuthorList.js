@@ -1,12 +1,21 @@
-import React from 'react';
+import React,{useEffect} from 'react';
+import {useSelector,useDispatch} from 'react-redux';
+import {getAllAuthors,getAuthorById} from '../store/author-actions';
+import {Status} from '../store/constants';
 
-const AuthorList=({authors=[],author})=>{
+
+const AuthorList=({})=>{
     //TODO: Initialize Here
 
-    authors=[
-        {name:'Vivek',id:'vivek'},
-        {name:'JK Rowling',id:"jkr"}
-    ];
+    const {authors,selectedAuthor:author,status} = useSelector(s=>s);
+    const  dispatch=useDispatch();
+    useEffect(()=>{
+        if(!authors || !authors.length){
+            
+            dispatch(getAllAuthors());
+        }
+
+    },[]);
     
     const getClasses=( currentAuthor )=>{
         let defaultClasses='list-group-item list-group-item-action ';
@@ -18,7 +27,8 @@ const AuthorList=({authors=[],author})=>{
     }
 
     const handleSelect=(a)=>{
-        console.log('selected',a);
+        //console.log('selected',a);
+        dispatch(getAuthorById(a.id));
     }
 
 

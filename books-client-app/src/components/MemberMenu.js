@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import userService from '../services/user-service';
+import {useSelector,useDispatch} from 'react-redux';
+import {logout, checkLogin} from '../store/user-actions';
 
 const GuestMenu = () => (
     <ul className="navbar-nav ml-auto">
@@ -36,15 +38,16 @@ const UserMenu = ({user,onLogout}) => (
 
 const MemberMenu = ({ }) => {
     //TODO: Initialize Here
-    let [user, setUser] = useState(null);
+    const dispatch=useDispatch();
+    const user=useSelector(s=>s.user);
 
-    useEffect(() => {
-        userService.getLoggedInUser().then(setUser);
-    })
+    useEffect(()=>{
+        checkLogin()(dispatch);
+    },[])
+
 
     const handleLogout = async()=>{
-        await userService.logout();
-        setUser(null);
+        logout()(dispatch);
     }
 
 

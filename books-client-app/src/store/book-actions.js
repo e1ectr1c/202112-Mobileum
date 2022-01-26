@@ -38,5 +38,16 @@ export const getBookByIsbn = (isbn) => async dispatch => {
 
 }
 
+export const addBook = (book) => async dispatch =>{
+
+    dispatch({type:Status.WAITING});
+    try{
+        let response=await bookService.addBook(book);
+        dispatch({type:BookActions.BOOK_ADD, payload:response});
+        dispatch({type:Status.SUCCESS});
+    } catch(error){
+        dispatch({type:Status.ERROR, payload:error});
+    }
+}
 
 

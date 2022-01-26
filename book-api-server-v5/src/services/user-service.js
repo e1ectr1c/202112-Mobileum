@@ -33,25 +33,36 @@ module.exports = {
         let data= { name: model.name, email: model.email, roles: model.roles, photo:model.photo }
 
 
-        const token=createToken({data});
-        return { status: "success", user: data, token };
+        data.token=createToken({data});
+        return data;
     },
 
     login: async({model})=>{
-
+        console.log('login model',model);
+        
         const user= await sequelize.models.User.findByPk(model.email);
         if(!user) 
             throw new ResponseError("Invalid credentials",401);
 
+        console.log('user',user.email,user.password);
+        
         const passwordResult= await bcrypt.compare(model.password,user.password);
+        console.log('passwordResult',passwordResult);
+        
         if(!passwordResult)
             throw new ResponseError("Invalid credentials",401);
 
+        console.log('sending valid response');
         let data= { name: user.name, email: user.email, roles: user.roles, photo:user.photo }
-        const token=createToken({data})
-    
-        return { status: "success", user: data, token };        
+        data.token=createToken({data})
+        
+        
+        //let result= { ...data, token };   
+        return data;
 
+    },
+    getAllUsers:async ()=>{
+        return await sequelize.models.User.findAll();
     },
 
     tokenChecker:(request,response,next)=>{
@@ -82,7 +93,7 @@ module.exports = {
         next();
     },
 
-    authorize:async(request,response,next)=>{
+    authenticate:async(request,response,next)=>{
 
         //this middleware will stop any unauthorized request.
 

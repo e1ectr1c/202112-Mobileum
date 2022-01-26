@@ -158,3 +158,17 @@ body{
         
     }
 }
+.center-image{
+    display:flex;
+    align-items:center;
+    justify-content:center;    
+    height:100%;
+}
+.BookAddScreen{
+    img{
+        width:200px;
+        margin:10px;
+        align-self: center;
+        
+    }
+}

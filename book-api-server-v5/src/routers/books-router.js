@@ -1,5 +1,7 @@
 const express= require('express');
-const {addBook,getAllBooks,getBookByIsbn} =require('../controllers/books-controller');
+const {addBook,getAllBooks,getBookByIsbn,updateBook,deleteBook} = require('../controllers/books-controller');
+const {authenticate} = require('../services/user-service');
+const {requestHandler} =require('../utils/http');
 
 
 module.exports=()=>{
@@ -9,14 +11,14 @@ module.exports=()=>{
     router
         .route("/")
         .get(getAllBooks)
-        .post(addBook);
+        .post(authenticate,addBook);
 
     
     router
         .route("/:isbn")
         .get(getBookByIsbn)
-        //.put()
-        //.delete()
+        .put(authenticate, requestHandler(updateBook))
+        .delete(authenticate, requestHandler(deleteBook))
         
         ;
         

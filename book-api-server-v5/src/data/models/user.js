@@ -14,7 +14,8 @@ module.exports=(sequelize)=>{
             roles:{
                 type:DataTypes.STRING,
                 get:function(){
-                    this.getDataValue('roles').split(',');
+                    //console.log('roles',this.getDataValue('roles'));
+                    return this.getDataValue('roles').split(',');
                 },
                 set:function(value){
                     this.setDataValue('roles', value.join(','));

@@ -7,6 +7,7 @@ module.exports=()=>{
 
     router
         .route("/")
+        .get(requestHandler(service.getAllUsers))
         .post(requestHandler(service.register))
         .put(requestHandler(service.login));
 

@@ -20,7 +20,7 @@ const BookDetailsScreen = (props) => {
     const dispatch=useDispatch();
 
     useEffect(()=>{
-        console.log('getting books');
+      //  console.log('getting book');
         getBookByIsbn(params.isbn)(dispatch);
     },[params.isbn]);
 
@@ -30,7 +30,7 @@ const BookDetailsScreen = (props) => {
         return <Navigate to={`/not-found?error=No book with given isbn&key=${params.isbn}`} />;
     }
 
-    console.log('status',status);
+   // console.log('status',status);
 
     const book=selectedBook;
 

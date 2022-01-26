@@ -19,7 +19,8 @@ const getAllBooks=async()=>{
 
 const getBookByIsbn=async(isbn)=>{
     const {Book} =sequelize.models;
-    const book= await Book.findOne({where:{isbn:isbn}});
+   // const book= await Book.findOne({where:{isbn:isbn}});
+   const book=await Book.findByPk(isbn);
     if(book)
         return book;
     else
@@ -28,13 +29,42 @@ const getBookByIsbn=async(isbn)=>{
 }
 
 const addBook=async(book)=>{
+    console.log('book',book);
     const {Book} =sequelize.models;
     const dbBook=await Book.create(book); //create and save to data base
     return new ResponseMessage(dbBook,201,{location:`/api/books/${dbBook.isbn}`});
 }
+const updateBook=async({model})=>{
+
+    const book= await sequelize.models.Book.findByPk(model.isbn);
+    if(!book)
+        throw new ResponseError("No Book matching the isbn",404, {isbn:model.isbn});
+    book.price=model.price;
+    book.cover=model.cover;
+    book.rating=model.rating;
+    book.votes=model.votes;
+    book.description=model.description;
+    book.tags=model.tags;
+    book.title=model.title;
+    book.author=model.author;
+    book.authorId=model.authorId;
+    
+    book.save(); //save yourself back. sequelize function
+    return book;
+
+}
+
+const deleteBook=async({isbn})=>{
+    const author=await sequelize.models.Book.destroy({where:{isbn}});
+    if(!author) 
+        throw new ResponseError("No book with matching isbn",404,{isbn});
+}
+
 
 module.exports={
     getAllBooks,
     getBookByIsbn,
-    addBook
+    addBook,
+    updateBook,
+    deleteBook
 }

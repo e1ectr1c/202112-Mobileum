@@ -24,7 +24,7 @@ const App = () => {
                <div className='Screen'>
 
                     <Routes>
-                         <Route path="/" element={<HomeScreen />} />
+                         <Route path="/" element={<BookListScreen />} />
                          <Route path="/book/info/:isbn" element={<BookDetailsScreen/>} />
                          <Route path="/book/list" element={<BookListScreen />} />
                          <Route path="/book/add" element={<BookAddScreen />} />

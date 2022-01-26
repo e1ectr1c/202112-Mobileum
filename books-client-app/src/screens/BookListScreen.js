@@ -17,9 +17,7 @@ const BookListScreen = () => {
   const {books,status}= useSelector(state=>state);
   const dispatch=useDispatch();
   
-  console.log('books',books);
-  console.log('status',status);
-
+  
   const getBooks=()=>{
     getAllBooks()(dispatch);
   }
